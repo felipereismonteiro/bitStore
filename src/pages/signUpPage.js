@@ -28,6 +28,7 @@ export default function SignUpPage() {
       setButton(true);
 
       const promisse = await axios.post("https://bitstore.onrender.com/sign-up", userForm);
+      console.log(promisse);
       alert("cadastrado!!!");
       navigate("/sign-in")
     } catch (err) {
