@@ -1,13 +1,40 @@
 import styled from "styled-components";
 import { Bars } from "react-loader-spinner";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
+  const [button, setButton] = useState(false);
+  const navigate = useNavigate();
+
+  async function change(e) {
+    try {
+      e.preventDefault();
+
+      if (e.target.senha.value !== e.target.confirmeSenha.value) {
+        alert("Senhas não coincidem!!!");
+        return false;
+      }
+
+      const userForm = {
+        name: e.target.nome.value,
+        email: e.target.email.value,
+        password: e.target.senha.value
+      }
   
-  function change(e) {
-    e.preventDefault();
+      setLoading(true);
+      setButton(true);
+
+      const promisse = await axios.post("https://bitstore.onrender.com/sign-up", userForm);
+      alert("cadastrado!!!");
+      navigate("/sign-in")
+    } catch (err) {
+      console.log(err.response.data);
+      setLoading(false);
+      setButton(false);
+    }
   }
 
   return (
@@ -18,7 +45,7 @@ export default function SignUpPage() {
         <Input type="email" name="email" placeholder="Email" />
         <Input type="password" name="senha" placeholder="Senha" />
         <Input type="password" name="confirmeSenha" placeholder="Confirme sua senha" />
-        <Button onClick={() => setLoading(true)}>
+        <Button disabled={button}>
           {loading ? (
             <Bars
               height="40"

@@ -2,20 +2,40 @@ import styled from "styled-components";
 import { Bars } from "react-loader-spinner";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false);
-  
-  function change(e) {
-    e.preventDefault();
+  const [button, setButton] = useState(false);
+
+  async function change(e) {
+    try {
+      e.preventDefault();
+
+      const userForm = {
+        email: e.target.email.value,
+        password: e.target.senha.value,
+      };
+
+      setLoading(true);
+      setButton(true);
+
+      const promisse = await axios.post("https://bitstore.onrender.com/sign-in", userForm);
+      console.log(promisse.data);
+      alert("Logado!!!")
+    } catch (err) {
+      console.log(err.response.data);
+      setLoading(false);
+      setButton(false);
+    }
   }
   return (
     <Container>
       <Text>Entrar</Text>
       <Form onSubmit={change}>
-        <Input type="email" name="email" placeholder="Email" />
-        <Input type="senha" name="senha" placeholder="Senha" />
-        <Button onClick={() => setLoading(true)}>
+        <Input type="email" name="email" placeholder="Email" required />
+        <Input type="password" name="senha" placeholder="Senha" required />
+        <Button disabled={button}>
           {loading ? (
             <Bars
               height="40"
@@ -32,7 +52,9 @@ export default function SignInPage() {
         </Button>
       </Form>
 
-      <Link to="/sign-up" style={{textDecoration: "none", margin: "10px"}}>Não possui uma conta? Cadastre-se agora!</Link>
+      <Link to="/sign-up" style={{ textDecoration: "none", margin: "10px" }}>
+        Não possui uma conta? Cadastre-se agora!
+      </Link>
     </Container>
   );
 }
