@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Bars } from "react-loader-spinner";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ export default function SignUpPage() {
           )}
         </Button>
       </Form>
+      <Link to="/sign-in" style={{textDecoration: "none", margin: "10px"}}>Possui uma conta? Entre agora!</Link>
     </Container>
   );
 }
