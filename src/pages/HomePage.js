@@ -9,32 +9,22 @@ import Icons from "../components/icons";
 
 export default function HomePage() {
   const [products, setProducts] = useState();
-  const mockup = {
-    category: "processador",
-    description:
-      "O Ryzen 7 5800X3D conta com 8 núcleos otimizados para plataformas de jogos de alto FPS. Os processadores AMD Ryzen série 5000 capacitam a próxima geração de jogos exigentes, proporcionando experiências imersivas únicas e dominando qualquer tarefa multithread como 3D e renderização de vídeo e compilação de software.",
-    image:
-      "https://images.kabum.com.br/produtos/fotos/320796/processador-amd-ryzen-5-5500-cache-19mb-3-7ghz-4-2ghz-max-turbo-am4-100-100000457box_1647636457_gg.jpg",
-    name: "Processador AMD Ryzen 7 5800X3D, 3.4GHz (4.5GHz Max Turbo), Cache 100MB, AM4, Sem Vídeo - 100-100000651WOF",
-    price: 1999.99,
-    _id: "6382570bd284db2c652fa7e9",
-  };
+  const [filter, setFilter] = useState("/products");
 
   useEffect(() => {
-    const request = axios.get(`${BASE_URL}/products`);
+    const request = axios.get(`${BASE_URL}${filter}`);
     request.then((res) => {
-      console.log(res);
       setProducts(res.data);
     });
     request.catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, [filter]);
 
   return (
     <>
       <Header />
-      <Categories />
+      <Categories setFilter={setFilter} />
       <Container>
         {products ? (
           products.map((e) => (

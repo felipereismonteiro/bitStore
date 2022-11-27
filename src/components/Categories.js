@@ -1,23 +1,21 @@
-import styled from "styled-components"
-import { useState, useEffect } from "react"
-import axios from "axios"
+import styled from "styled-components";
 
-
-export default function Categories() {
-
-
+export default function Categories({ setFilter }) {
+  function change(e) {
+    setFilter(`/products?category=${e}`)
+  }
 
   return (
     <Container>
-      <p>Processador</p>
-      <p>Placa mãe</p>
-      <p>Placa de vídeo</p>
-      <p>Memória Ram</p>
-      <p>SSD/HD</p>
-      <p>Gabinete</p>
-      <p>Fonte</p>
+      <p onClick={() => change("processador")} style={{cursor: "pointer"}} >Processador</p>
+      <p onClick={() => change("placa-mae")} style={{cursor: "pointer"}} >Placa mãe</p>
+      <p onClick={() => change("placa-de-video")} style={{cursor: "pointer"}} >Placa de vídeo</p>
+      <p onClick={() => change("memoria-ram")} style={{cursor: "pointer"}} >Memória Ram</p>
+      <p onClick={() => change("ssd-hd")} style={{cursor: "pointer"}} >SSD/HD</p>
+      <p onClick={() => change("gabinete")} style={{cursor: "pointer"}} >Gabinete</p>
+      <p onClick={() => change("fonte")} style={{cursor: "pointer"}} >Fonte</p>
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
@@ -33,4 +31,4 @@ const Container = styled.div`
     font-weight: 700;
     margin: 10px;
   }
-`
+`;
