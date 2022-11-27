@@ -5,9 +5,9 @@ import axios from "axios";
 import Header from "../components/Header";
 import Categories from "../components/Categories";
 import { Oval } from "react-loader-spinner";
-import { AiOutlineLogin } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import Context from "../context/context";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import Sign from "../components/sign";
+import Cart from "../components/cart";
 
 export default function HomePage() {
   const [products, setProducts] = useState();
@@ -21,7 +21,6 @@ export default function HomePage() {
     price: 1999.99,
     _id: "6382570bd284db2c652fa7e9",
   };
-  const [ token ] = useContext(Context);
 
   useEffect(() => {
     const request = axios.get(`${BASE_URL}/products`);
@@ -61,11 +60,8 @@ export default function HomePage() {
           />
         )}
       </Container>
-      <Sign>
-        <Link to="/sign-in" style={{textDecoration: "none", color: "black"}}>
-          {token === undefined && <AiOutlineLogin style={{fontSize: "50px"}}></AiOutlineLogin>}
-        </Link>
-      </Sign>
+      <Sign />
+      <Cart />
     </>
   );
 }
@@ -92,15 +88,4 @@ const Product = styled.div`
   p {
     text-align: center;
   }
-`;
-const Sign = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 10%;
-  height: 100px;
-  position: fixed;
-  bottom: 0;
-  right: 10px;
 `;
