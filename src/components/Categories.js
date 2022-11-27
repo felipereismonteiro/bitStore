@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 export default function Categories({ setFilter }) {
   function change(e) {
+    if(e === true) {
+      return setFilter("/products")
+    }
     setFilter(`/products?category=${e}`)
   }
 
   return (
     <Container>
+      <p onClick={() => change(true)} style={{cursor: "pointer"}} >Todos</p>
       <p onClick={() => change("processador")} style={{cursor: "pointer"}} >Processador</p>
       <p onClick={() => change("placa-mae")} style={{cursor: "pointer"}} >Placa mãe</p>
       <p onClick={() => change("placa-de-video")} style={{cursor: "pointer"}} >Placa de vídeo</p>

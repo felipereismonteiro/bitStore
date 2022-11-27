@@ -10,6 +10,7 @@ import Icons from "../components/icons";
 export default function HomePage() {
   const [products, setProducts] = useState();
   const [filter, setFilter] = useState("/products");
+  console.log(filter)
 
   useEffect(() => {
     const request = axios.get(`${BASE_URL}${filter}`);
