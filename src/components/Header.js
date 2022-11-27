@@ -1,12 +1,10 @@
 import styled from "styled-components"
-import { useState } from "react"
-import axios from "axios"
 import logo from "../assets/images/logo.png"
 
 export default function Header() {
   return (
     <Container>
-      <img src={logo} />
+      <img src={logo} alt="logo" />
     </Container>
   )
 }
@@ -19,5 +17,12 @@ const Container = styled.div`
   border-bottom: 4px solid black;
   img {
     height: 40px;
+  }
+  @media (max-width: 768px) {
+    img {
+      width: 90%;
+      height: auto;
+      margin: 20px;
+    }
   }
 `
