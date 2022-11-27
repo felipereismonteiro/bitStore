@@ -21,7 +21,6 @@ export default function Categories() {
 }
 
 const Container = styled.div`
-  height: 40px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -32,5 +31,6 @@ const Container = styled.div`
   }
   p {
     font-weight: 700;
+    margin: 10px;
   }
 `
