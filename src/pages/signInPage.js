@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import { Bars } from "react-loader-spinner";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../constants/url";
+import Context from "../context/context";
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false);
   const [button, setButton] = useState(false);
+  const [ token, setToken ] = useContext(Context);
+  const navigate = useNavigate();
 
   async function change(e) {
     try {
@@ -22,8 +25,9 @@ export default function SignInPage() {
       setButton(true);
 
       const promisse = await axios.post(`${BASE_URL}/sign-in`, userForm);
-      console.log(promisse.data);
-      alert("Logado!!!")
+      setToken(promisse.data);
+      alert("Logado!!!");
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
       alert("Email ou senha invalidos!!!");

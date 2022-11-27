@@ -23,9 +23,9 @@ export default function Categories() {
 const Container = styled.div`
   height: 40px;
   display: flex;
-  padding: 0 100px 0 100px;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
   border-bottom: 4px solid black;
   img {
     height: 40px;

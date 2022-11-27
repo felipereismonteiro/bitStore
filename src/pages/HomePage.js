@@ -1,14 +1,16 @@
-import styled from "styled-components"
-import { useState, useEffect } from "react"
-import { BASE_URL } from "../constants/url"
-import axios from "axios"
-import Header from "../components/Header"
-import Categories from "../components/Categories"
-import { Oval } from "react-loader-spinner"
-
+import styled from "styled-components";
+import { useState, useEffect, useContext } from "react";
+import { BASE_URL } from "../constants/url";
+import axios from "axios";
+import Header from "../components/Header";
+import Categories from "../components/Categories";
+import { Oval } from "react-loader-spinner";
+import { AiOutlineLogin } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import Context from "../context/context";
 
 export default function HomePage() {
-  const [products, setProducts] = useState()
+  const [products, setProducts] = useState();
   const mockup = {
     category: "processador",
     description:
@@ -18,55 +20,64 @@ export default function HomePage() {
     name: "Processador AMD Ryzen 7 5800X3D, 3.4GHz (4.5GHz Max Turbo), Cache 100MB, AM4, Sem Vídeo - 100-100000651WOF",
     price: 1999.99,
     _id: "6382570bd284db2c652fa7e9",
-  }
+  };
+  const [ token ] = useContext(Context);
 
   useEffect(() => {
-    const request = axios.get(`${BASE_URL}/products`)
+    const request = axios.get(`${BASE_URL}/products`);
     request.then((res) => {
-      console.log(res)
-      setProducts(res.data)
-    })
+      console.log(res);
+      setProducts(res.data);
+    });
     request.catch((error) => {
-      console.log(error)
-    })
-  }, [])
+      console.log(error);
+    });
+  }, []);
 
   return (
     <>
       <Header />
       <Categories />
       <Container>
-        {products ?
-          products.map((e) => 
+        {products ? (
+          products.map((e) => (
             <Product key={e._id}>
               <img src={e.image} alt="product" />
               <p>{e.name}</p>
             </Product>
-          ) : <Oval
-          height={80}
-          width={80}
-          color="black"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-          ariaLabel='oval-loading'
-          secondaryColor="grey"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-        />}
+          ))
+        ) : (
+          <Oval
+            height={80}
+            width={80}
+            color="black"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="grey"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        )}
       </Container>
+      <Sign>
+        <Link to="/sign-in" style={{textDecoration: "none", color: "black"}}>
+          {token === undefined && <AiOutlineLogin style={{fontSize: "50px"}}></AiOutlineLogin>}
+        </Link>
+      </Sign>
     </>
-  )
+  );
 }
 
 const Container = styled.div`
   /* background-color: blue; */
   height: 100vh;
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   justify-content: center;
   margin: 50px;
-`
+`;
 const Product = styled.div`
   height: 300px;
   margin: 10px;
@@ -81,4 +92,15 @@ const Product = styled.div`
   p {
     text-align: center;
   }
-`
+`;
+const Sign = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+`;
