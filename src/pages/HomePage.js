@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { BASE_URL } from "../constants/url";
 import axios from "axios";
 import Header from "../components/Header";
 import Categories from "../components/Categories";
 import { Oval } from "react-loader-spinner";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import Sign from "../components/sign";
-import Cart from "../components/cart";
+import Icons from "../components/icons";
 
 export default function HomePage() {
   const [products, setProducts] = useState();
@@ -60,8 +58,7 @@ export default function HomePage() {
           />
         )}
       </Container>
-      <Sign />
-      <Cart />
+      <Icons />
     </>
   );
 }
