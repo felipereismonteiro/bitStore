@@ -3,6 +3,7 @@ import { Bars } from "react-loader-spinner";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../constants/url"
 
 export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ export default function SignUpPage() {
       setLoading(true);
       setButton(true);
 
-      const promisse = await axios.post("https://bitstore.onrender.com/sign-up", userForm);
+      const promisse = await axios.post(`${BASE_URL}/sign-up`, userForm);
       console.log(promisse);
       alert("cadastrado!!!");
       navigate("/sign-in")

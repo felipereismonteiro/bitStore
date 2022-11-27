@@ -1,9 +1,11 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
+import { BASE_URL } from "../constants/url"
 import axios from "axios"
 import Header from "../components/Header"
 import Categories from "../components/Categories"
-import { BASE_URL } from "../constants/url"
+import { Oval } from "react-loader-spinner"
+
 
 export default function HomePage() {
   const [products, setProducts] = useState()
@@ -34,13 +36,24 @@ export default function HomePage() {
       <Header />
       <Categories />
       <Container>
-        {products &&
+        {products ?
           products.map((e) => 
             <Product key={e._id}>
-              <img src={e.image} />
+              <img src={e.image} alt="product" />
               <p>{e.name}</p>
             </Product>
-          )}
+          ) : <Oval
+          height={80}
+          width={80}
+          color="black"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel='oval-loading'
+          secondaryColor="grey"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />}
       </Container>
     </>
   )

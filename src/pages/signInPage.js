@@ -3,6 +3,7 @@ import { Bars } from "react-loader-spinner";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../constants/url";
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false);
@@ -20,11 +21,12 @@ export default function SignInPage() {
       setLoading(true);
       setButton(true);
 
-      const promisse = await axios.post("https://bitstore.onrender.com/sign-in", userForm);
+      const promisse = await axios.post(`${BASE_URL}/sign-in`, userForm);
       console.log(promisse.data);
       alert("Logado!!!")
     } catch (err) {
       console.log(err.response.data);
+      alert("Email ou senha invalidos!!!");
       setLoading(false);
       setButton(false);
     }
