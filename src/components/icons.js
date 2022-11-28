@@ -41,7 +41,7 @@ export default function Icons() {
 
   async function deleteProduct(id) {
     try {
-      axios.delete(`${BASE_URL}/${id}`, config)
+      axios.delete(`${BASE_URL}/shoppingCart/${id}`, config)
     } catch (err) {
       console.log(err.response.data)
     }
