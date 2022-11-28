@@ -24,7 +24,7 @@ export default function ProductPage() {
       `${BASE_URL}/products?productId=${params.idProduct}`
     )
     request.then((res) => {
-      setProduct(res.data)
+      setProduct(res.data);
     })
     request.catch((error) => {
       console.log(error)
