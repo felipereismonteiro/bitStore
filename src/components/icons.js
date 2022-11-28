@@ -43,15 +43,6 @@ export default function Icons() {
 
   return (
     <Container>
-      <SignUser>
-        {token === undefined ? (
-          <AiOutlineLogin
-            onClick={() => navigate("/sign-in")}
-          />
-        ) : (
-          <AiOutlineUser style={{ fontSize: "50px", cursor: "pointer" }} />
-        )}
-      </SignUser>
       <CartUser>
         {open === false &&
           <>
@@ -62,7 +53,6 @@ export default function Icons() {
             <Number>0</Number>
           </>
         }
-        
       </CartUser>
       {open && 
         <Carrinho>
@@ -76,6 +66,15 @@ export default function Icons() {
           </Product>
           )}
         </Carrinho>}
+        <SignUser>
+        {token === undefined ? (
+          <AiOutlineLogin
+            onClick={() => navigate("/sign-in")}
+          />
+        ) : (
+          <AiOutlineUser style={{ fontSize: "50px", cursor: "pointer" }} />
+        )}
+      </SignUser>
     </Container>
   );
 }
@@ -84,8 +83,9 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100px;
-  position: absolute;
+  position: fixed;
   right: 10%;
+  bottom: 0;
   @media (max-width: 768px) {
     width: 50px;
     right: 5%;
@@ -95,6 +95,7 @@ const SignUser = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 50px;
   align-items: center;
   width: 10%;
   height: 100px;

@@ -1,12 +1,10 @@
 import styled from "styled-components"
 import logo from "../assets/images/logo.png"
-import Icons from "./icons";
 
 export default function Header() {
   return (
     <Container>
       <img src={logo} alt="logo" />
-      <Icons/>
     </Container>
     
   )
