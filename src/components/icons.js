@@ -16,8 +16,9 @@ export default function Icons() {
   const [token] = useContext(Context);
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState();
   const navigate = useNavigate();
-
+  
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -29,11 +30,12 @@ export default function Icons() {
       .get(`${BASE_URL}/shoppingCart`, config)
       .then((res) => {
         setProducts(res.data);
+        res.data.map(p => console.log(p.price))
       })
       .catch((er) => {
         console.log(er.response.data);
       });
-  }, [open]);
+  }, []);
 
   async function deleteProduct(id) {
     try {
@@ -89,7 +91,7 @@ export default function Icons() {
               />
             </Product>
           ))}
-            <Total><h1>Total: R$1000</h1></Total>
+            <Total><h1>Total: R${total}</h1></Total>
         </Carrinho>
       )}
       <SignUser>
@@ -157,7 +159,6 @@ const Carrinho = styled.div`
   border: 1px solid black;
   overflow-y: auto;
   box-sizing: border-box;
-  padding-bottom: 90px;
   @media (max-width: 768px) {
     right: 10px;
     bottom: 80px;
@@ -183,7 +184,6 @@ const Product = styled.div`
   }
 `;
 const Total = styled.div`
-  position: absolute;
   width: 100%;
   height: 100px;
   display: flex;
