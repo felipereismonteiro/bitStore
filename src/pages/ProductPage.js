@@ -1,13 +1,13 @@
 import Header from "../components/Header"
 import { useParams } from "react-router-dom"
-import Categories from "../components/Categories"
 import { BASE_URL } from "../constants/url"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 import { Oval } from "react-loader-spinner"
 import Icons from "../components/icons"
+import { AiOutlineRollback } from "react-icons/ai";
 
 export default function ProductPage() {
   const params = useParams()
@@ -78,7 +78,11 @@ export default function ProductPage() {
           />
         )}
       </Container>
+      <Back>
+          <AiOutlineRollback style={{cursor: "pointer"}} onClick={() => navigate("/")}/>
+      </Back>
       <Icons />
+
     </>
   )
 }
@@ -147,4 +151,14 @@ const WriteDiv = styled.div`
       font-size: 15px;
     }
   }
+`
+const Back = styled.div`
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
 `
