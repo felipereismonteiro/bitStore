@@ -1,15 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignInPage from "./pages/signInPage";
-import SignUpPage from "./pages/signUpPage";
-import GlobalStyle from "./components/GlobalStyle";
-import HomePage from "./pages/HomePage";
-import Context from "./context/context";
-import ProductPage from "./pages/ProductPage";
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import SignInPage from "./pages/signInPage"
+import SignUpPage from "./pages/signUpPage"
+import GlobalStyle from "./components/GlobalStyle"
+import HomePage from "./pages/HomePage"
+import Context from "./context/context"
+import ProductPage from "./pages/ProductPage"
+import { useState } from "react"
+import CheckoutPage from "./pages/CheckoutPage"
 
 function App() {
-  const [token, setToken] = useState(undefined);
-
+  const [token, setToken] = useState(undefined)
   return (
     <>
       <Context.Provider value={[token, setToken]}>
@@ -20,11 +20,12 @@ function App() {
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:idProduct" element={<ProductPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
