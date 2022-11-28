@@ -47,7 +47,6 @@ export default function Icons() {
         {token === undefined ? (
           <AiOutlineLogin
             onClick={() => navigate("/sign-in")}
-            style={{ fontSize: "50px", cursor: "pointer" }}
           />
         ) : (
           <AiOutlineUser style={{ fontSize: "50px", cursor: "pointer" }} />
@@ -82,9 +81,15 @@ export default function Icons() {
 }
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100px;
+  position: absolute;
+  right: 10%;
+  @media (max-width: 768px) {
+    width: 50px;
+    right: 5%;
+  }
 `;
 const SignUser = styled.div`
   display: flex;
@@ -93,9 +98,6 @@ const SignUser = styled.div`
   align-items: center;
   width: 10%;
   height: 100px;
-  position: fixed;
-  bottom: 0;
-  right: 10px;
 `;
 const CartUser = styled.div`
   display: flex;
@@ -104,9 +106,6 @@ const CartUser = styled.div`
   align-items: center;
   width: 10%;
   height: 100px;
-  position: fixed;
-  bottom: 0;
-  right: 80px;
 `;
 const Number = styled.h1`
   width: 10px;
@@ -114,6 +113,10 @@ const Number = styled.h1`
   position: absolute;
   margin-bottom: 55px;
   margin-left: 50px;
+  @media (max-width: 768px) {
+    margin-bottom: 45px;
+  margin-left: 30px;
+  }
 `;
 const Carrinho = styled.div`
   width: 350px;

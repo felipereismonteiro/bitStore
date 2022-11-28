@@ -5,11 +5,12 @@ import axios from "axios";
 import Header from "../components/Header";
 import Categories from "../components/Categories";
 import { Oval } from "react-loader-spinner";
-import Icons from "../components/icons";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [products, setProducts] = useState();
   const [filter, setFilter] = useState("/products");
+  const navigate = useNavigate()
 
   useEffect(() => {
     const request = axios.get(`${BASE_URL}${filter}`);
@@ -31,6 +32,8 @@ export default function HomePage() {
             <Product key={e._id}>
               <img src={e.image} alt="product" />
               <p>{e.name}</p>
+              <h1>R${e.price}</h1>
+              <button onClick={() => {navigate(`/product/${e._id}`)}}>Comprar</button>
             </Product>
           ))
         ) : (
@@ -48,7 +51,6 @@ export default function HomePage() {
           />
         )}
       </Container>
-      <Icons />
     </>
   );
 }
@@ -62,17 +64,39 @@ const Container = styled.div`
   margin: 50px;
 `;
 const Product = styled.div`
-  height: 300px;
+  height: 330px;
   margin: 10px;
   width: 300px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
   background-color: white;
+  border: 1px solid black;
+  position: relative;
+  padding-bottom: 35px;
+  border-radius: 5px;
+  h1{
+      color: green;
+      font-weight: 700;
+    }
   img {
     height: 200px;
   }
   p {
     text-align: center;
+  }
+  button{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border: none;
+    background-color: gray;
+    height: 28px;
+    color: white;
+    cursor: pointer;
+    :hover{
+      background-color: black;
+    }
   }
 `;
