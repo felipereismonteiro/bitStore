@@ -2,11 +2,11 @@ import styled from "styled-components"
 import { BASE_URL } from "../constants/url"
 import {
   AiOutlineLogin,
-  AiOutlineUser,
   AiOutlineShoppingCart,
   AiOutlineCloseCircle,
   AiOutlineClose,
 } from "react-icons/ai"
+import {ImExit} from "react-icons/im"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -101,7 +101,7 @@ export default function Icons() {
         {!token ? (
           <AiOutlineLogin onClick={() => navigate("/sign-in")} />
         ) : (
-          <AiOutlineUser style={{ fontSize: "50px", cursor: "pointer" }} />
+          <ImExit onClick={() => (localStorage.removeItem("bearer"), navigate("/"))} style={{ fontSize: "50px", cursor: "pointer" }} />
         )}
       </SignUser>
     </Container>
