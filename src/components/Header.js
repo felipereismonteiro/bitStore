@@ -21,9 +21,8 @@ const Container = styled.div`
     height: 40px;
   }
   @media (max-width: 768px) {
-    justify-content: flex-start;
     img {
-      width: 70%;
+      width: 80%;
       height: auto;
       margin: 20px;
     }
