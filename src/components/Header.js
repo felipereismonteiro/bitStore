@@ -6,7 +6,6 @@ export default function Header() {
     <Container>
       <img src={logo} alt="logo" />
     </Container>
-    
   )
 }
 

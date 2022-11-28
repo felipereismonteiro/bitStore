@@ -1,38 +1,39 @@
-import styled from "styled-components";
-import { Bars } from "react-loader-spinner";
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../constants/url";
-import Context from "../context/context";
+import styled from "styled-components"
+import { Bars } from "react-loader-spinner"
+import { useContext, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { BASE_URL } from "../constants/url"
+import Context from "../context/context"
 
 export default function SignInPage() {
-  const [loading, setLoading] = useState(false);
-  const [button, setButton] = useState(false);
-  const [ token, setToken ] = useContext(Context);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const [button, setButton] = useState(false)
+  const [token, setToken] = useContext(Context)
+  const navigate = useNavigate()
 
   async function change(e) {
     try {
-      e.preventDefault();
+      e.preventDefault()
 
       const userForm = {
         email: e.target.email.value,
         password: e.target.senha.value,
-      };
+      }
 
-      setLoading(true);
-      setButton(true);
+      setLoading(true)
+      setButton(true)
 
-      const promisse = await axios.post(`${BASE_URL}/sign-in`, userForm);
-      setToken(promisse.data);
-      alert("Logado!!!");
-      navigate("/");
+      const promisse = await axios.post(`${BASE_URL}/sign-in`, userForm)
+      setToken(promisse.data)
+      localStorage.setItem("bearer", promisse.data)
+      alert("Logado!!!")
+      navigate("/")
     } catch (err) {
-      console.log(err.response.data);
-      alert("Email ou senha invalidos!!!");
-      setLoading(false);
-      setButton(false);
+      console.log(err.response.data)
+      alert("Email ou senha invalidos!!!")
+      setLoading(false)
+      setButton(false)
     }
   }
   return (
@@ -62,7 +63,7 @@ export default function SignInPage() {
         Não possui uma conta? Cadastre-se agora!
       </Link>
     </Container>
-  );
+  )
 }
 
 const Container = styled.div`
@@ -72,18 +73,18 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Text = styled.h1`
   font-size: 30px;
-`;
+`
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Input = styled.input`
   border: none;
@@ -97,7 +98,7 @@ const Input = styled.input`
     outline: none;
     border-bottom: 3px solid black;
   }
-`;
+`
 
 const Button = styled.button`
   display: flex;
@@ -122,4 +123,4 @@ const Button = styled.button`
     /* transform: translateY(2px); */
     width: 145px;
   }
-`;
+`
