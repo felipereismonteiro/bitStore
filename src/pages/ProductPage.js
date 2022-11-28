@@ -40,14 +40,18 @@ export default function ProductPage() {
             <img src={product.image} />
             <WriteDiv>
               <h1>{product.name}</h1>
-              <h2>{product.price}</h2>
+              <h2>R${product.price}</h2>
               <button
                 onClick={() => {
-                  console.log('oi')
+                  
                   const body = {
-                    idProduct: params.idProduct
-                    }
-                  const request = axios.post(`${BASE_URL}/shoppingCart`, body, config)
+                    idProduct: params.idProduct,
+                  }
+                  const request = axios.post(
+                    `${BASE_URL}/shoppingCart`,
+                    body,
+                    config
+                  )
                   request.then((res) => {
                     console.log(res.data)
                   })
@@ -93,8 +97,17 @@ const Container = styled.div`
     width: 50%;
     margin-right: 40px;
   }
-  @media (max-width: 1000px) {
+  @media (max-width: 700px) {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
     width: 100%;
+    img {
+      width: 100%;
+      margin: none;
+    }
+
+    /* width: 100%;
     height: 100vh;
     margin: 20px;
     padding: none;
@@ -102,7 +115,7 @@ const Container = styled.div`
     img {
       width: 80%;
       margin: none;
-    }
+    } */
   }
 `
 const WriteDiv = styled.div`
@@ -131,5 +144,19 @@ const WriteDiv = styled.div`
 
   p {
     font-size: 20px;
+  }
+  @media (max-width: 700px) {
+    h1{
+      font-size: 20px;
+    }
+    h2{
+      font-size: 30px;
+    }
+    button{
+      height: 40px;
+    }
+    p{
+      font-size: 15px;
+    }
   }
 `
