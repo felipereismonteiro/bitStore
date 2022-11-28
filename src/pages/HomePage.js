@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Categories from "../components/Categories";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import Icons from "../components/icons";
 
 export default function HomePage() {
   const [products, setProducts] = useState();
@@ -51,6 +52,7 @@ export default function HomePage() {
           />
         )}
       </Container>
+      <Icons />
     </>
   );
 }
