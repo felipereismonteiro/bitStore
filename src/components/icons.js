@@ -1,52 +1,55 @@
-import styled from "styled-components";
-import { BASE_URL } from "../constants/url";
+import styled from "styled-components"
+import { BASE_URL } from "../constants/url"
 import {
   AiOutlineLogin,
   AiOutlineUser,
   AiOutlineShoppingCart,
   AiOutlineCloseCircle,
   AiOutlineClose,
-} from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import Context from "../context/context";
-import axios from "axios";
+} from "react-icons/ai"
+import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export default function Icons() {
-  const [token] = useContext(Context);
-  const [open, setOpen] = useState(false);
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
-
+  const token = localStorage.getItem("bearer")
+  const [open, setOpen] = useState(false)
+  const [products, setProducts] = useState([])
+  const navigate = useNavigate()
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  };
+  }
 
   useEffect(() => {
     axios
       .get(`${BASE_URL}/shoppingCart`, config)
       .then((res) => {
-        setProducts(res.data);
+        setProducts(res.data)
       })
       .catch((er) => {
-        console.log(er.response.data);
-      });
-  }, [open]);
+        console.log(er.response.data)
+      })
+  }, [open])
+
+  function totalPrice() {
+    let price = 0
+    products.forEach((e) => (price += e.price))
+    return price
+  }
 
   async function deleteProduct(id) {
     try {
-      await axios.delete(`${BASE_URL}/shoppingCart/${id}`, config);
-      setOpen(true);
+      axios.delete(`${BASE_URL}/${id}`, config)
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err.response.data)
     }
   }
 
   return (
     <Container>
-      {token !== undefined && (
+      {token && (
         <CartUser color={open ? "" : "black"}>
           {open === false && (
             <>
@@ -70,7 +73,6 @@ export default function Icons() {
             style={{
               position: "fixed",
               cursor: "pointer",
-              margin: "5px"
             }}
           />
           {products.map((p) => (
@@ -89,18 +91,21 @@ export default function Icons() {
               />
             </Product>
           ))}
-            <Total><h1>Total: R$1000</h1></Total>
+          <TotalPrice>
+            <p>R${totalPrice()}</p>
+            <button onClick={() => {navigate("/checkout")}}>Finalizar Compra</button>
+          </TotalPrice>
         </Carrinho>
       )}
       <SignUser>
-        {token === undefined ? (
+        {!token ? (
           <AiOutlineLogin onClick={() => navigate("/sign-in")} />
         ) : (
           <AiOutlineUser style={{ fontSize: "50px", cursor: "pointer" }} />
         )}
       </SignUser>
     </Container>
-  );
+  )
 }
 const Container = styled.div`
   display: flex;
@@ -114,7 +119,7 @@ const Container = styled.div`
     width: 50px;
     right: 5%;
   }
-`;
+`
 const SignUser = styled.div`
   display: flex;
   flex-direction: column;
@@ -125,7 +130,7 @@ const SignUser = styled.div`
   height: 50px;
   color: black;
   border-radius: 50%;
-`;
+`
 const CartUser = styled.div`
   display: flex;
   justify-content: center;
@@ -137,15 +142,16 @@ const CartUser = styled.div`
   color: black;
   border-radius: 50%;
   margin-bottom: 5px;
-`;
+`
 const Number = styled.h1`
   position: absolute;
   top: -2%;
   right: 10%;
   @media (max-width: 768px) {
-    right: 10%;
+    top: 2px;
+    right: 8px;
   }
-`;
+`
 const Carrinho = styled.div`
   width: 350px;
   height: 500px;
@@ -156,13 +162,12 @@ const Carrinho = styled.div`
   border-radius: 5px;
   border: 1px solid black;
   overflow-y: auto;
-  box-sizing: border-box;
-  padding-bottom: 90px;
+  padding-bottom: 60px;
   @media (max-width: 768px) {
     right: 10px;
     bottom: 80px;
   }
-`;
+`
 const Product = styled.div`
   display: flex;
   justify-content: center;
@@ -181,14 +186,27 @@ const Product = styled.div`
     font-size: 15px;
     color: green;
   }
-`;
-const Total = styled.div`
+`
+
+const TotalPrice = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 30px;
+  justify-content: space-around;
   bottom: 0;
+  border-top: 1px solid black;
+  width: 100%;
+  height: 60px;
+  p {
+    color: green;
+    font-size: 20px;
+  }
+  button {
+    border: none;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    height: 30px;
+    cursor: pointer;
+  }
 `

@@ -1,41 +1,41 @@
-import styled from "styled-components";
-import { Bars } from "react-loader-spinner";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import styled from "styled-components"
+import { Bars } from "react-loader-spinner"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 import { BASE_URL } from "../constants/url"
 
 export default function SignUpPage() {
-  const [loading, setLoading] = useState(false);
-  const [button, setButton] = useState(false);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const [button, setButton] = useState(false)
+  const navigate = useNavigate()
 
   async function change(e) {
     try {
-      e.preventDefault();
+      e.preventDefault()
 
       if (e.target.senha.value !== e.target.confirmeSenha.value) {
-        alert("Senhas não coincidem!!!");
-        return false;
+        alert("Senhas não coincidem!!!")
+        return false
       }
 
       const userForm = {
         name: e.target.nome.value,
         email: e.target.email.value,
-        password: e.target.senha.value
+        password: e.target.senha.value,
       }
-  
-      setLoading(true);
-      setButton(true);
 
-      const promisse = await axios.post(`${BASE_URL}/sign-up`, userForm);
-      console.log(promisse);
-      alert("cadastrado!!!");
+      setLoading(true)
+      setButton(true)
+
+      const promisse = await axios.post(`${BASE_URL}/sign-up`, userForm)
+      console.log(promisse)
+      alert("cadastrado!!!")
       navigate("/sign-in")
     } catch (err) {
-      console.log(err.response.data);
-      setLoading(false);
-      setButton(false);
+      console.log(err.response.data)
+      setLoading(false)
+      setButton(false)
     }
   }
 
@@ -46,7 +46,11 @@ export default function SignUpPage() {
         <Input type="name" name="nome" placeholder="Nome" />
         <Input type="email" name="email" placeholder="Email" />
         <Input type="password" name="senha" placeholder="Senha" />
-        <Input type="password" name="confirmeSenha" placeholder="Confirme sua senha" />
+        <Input
+          type="password"
+          name="confirmeSenha"
+          placeholder="Confirme sua senha"
+        />
         <Button disabled={button}>
           {loading ? (
             <Bars
@@ -63,9 +67,11 @@ export default function SignUpPage() {
           )}
         </Button>
       </Form>
-      <Link to="/sign-in" style={{textDecoration: "none", margin: "10px"}}>Possui uma conta? Entre agora!</Link>
+      <Link to="/sign-in" style={{ textDecoration: "none", margin: "10px" }}>
+        Possui uma conta? Entre agora!
+      </Link>
     </Container>
-  );
+  )
 }
 
 const Container = styled.div`
@@ -75,18 +81,18 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Text = styled.h1`
   font-size: 30px;
-`;
+`
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Input = styled.input`
   border: none;
@@ -100,7 +106,7 @@ const Input = styled.input`
     outline: none;
     border-bottom: 3px solid black;
   }
-`;
+`
 
 const Button = styled.button`
   display: flex;
@@ -125,4 +131,4 @@ const Button = styled.button`
     /* transform: translateY(2px); */
     width: 145px;
   }
-`;
+`
