@@ -4,6 +4,7 @@ import SignUpPage from "./pages/signUpPage";
 import GlobalStyle from "./components/GlobalStyle";
 import HomePage from "./pages/HomePage";
 import Context from "./context/context";
+import ProductPage from "./pages/ProductPage";
 import { useState } from "react";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/product/:idProduct" element={<ProductPage />} />
           </Routes>
         </BrowserRouter>
       </Context.Provider>
