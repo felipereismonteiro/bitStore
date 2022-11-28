@@ -5,8 +5,7 @@ import {
   AiOutlineUser,
   AiOutlineShoppingCart,
   AiOutlineCloseCircle,
-  AiOutlineClose,
-  AiOutlineEdit
+  AiOutlineClose
 } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import axios from "axios";
 export default function Icons() {
   const [token] = useContext(Context);
   const [open, setOpen] = useState(false);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   const config = {
@@ -27,10 +27,19 @@ export default function Icons() {
   useEffect(() => {
     axios.get(`${BASE_URL}/shoppingCart`, config).then((res) => {
       console.log(res.data)
+      setProducts(res.data);
     }).catch(er => {
       console.log(er.response.data);
     })
-  }, [])
+  }, [open])
+
+  async function deleteProduct(id) {
+    try {
+      axios.delete(`http://localhost:5000/shoppingCart/${id}`, config);
+    } catch(err) {
+      console.log(err.response.data);
+    }
+  }
 
   return (
     <Container>
@@ -59,12 +68,14 @@ export default function Icons() {
       {open && 
         <Carrinho>
           <AiOutlineCloseCircle onClick={() => setOpen(false)} style={{fontSize: "20px", margin: "5px", position: "fixed", cursor: "pointer"}}/>
-          <Product>
-            <img src="https://images.kabum.com.br/produtos/fotos/320796/processador-amd-ryzen-5-5500-cache-19mb-3-7ghz-4-2ghz-max-turbo-am4-100-100000457box_1647636457_gg.jpg" alt="" />
-            <p>Processador AMD Ryzen 7 5800X3D, 3.4GHz (4.5GHz Max Turbo), Cache 100MB, AM4, Sem Vídeo - 100-100000651WOF</p>
-            <AiOutlineClose style={{color: "red", border: "1px solid red", marginRight: "5px", cursor: "pointer"}}/>
-            <AiOutlineEdit style={{color: "green", border: "1px solid green", cursor: "pointer"}}/>
+          {products.map((p) => 
+            <Product>
+            <img src={p.image} alt="" />
+            <p>{p.name}</p>
+            <p className="preco">{p.price}</p>
+            <AiOutlineClose onClick={() => deleteProduct(p._id)} style={{color: "red", border: "1px solid red", marginRight: "10px", cursor: "pointer"}}/>
           </Product>
+          )}
         </Carrinho>}
     </Container>
   );
@@ -130,8 +141,12 @@ const Product = styled.div`
   }
   p {
     margin-left: 10px;
-    margin-right: 60px;
+    margin-right: 20px;
     font-size: 10px;
     max-width: 150px;
+  }
+  .preco {
+    font-size: 15px;
+    color: green;
   }
 `
