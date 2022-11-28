@@ -9,7 +9,6 @@ import { useState } from "react";
 
 function App() {
   const [token, setToken] = useState(undefined);
-  console.log(token);
 
   return (
     <>
