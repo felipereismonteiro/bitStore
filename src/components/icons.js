@@ -28,7 +28,6 @@ export default function Icons() {
     axios
       .get(`${BASE_URL}/shoppingCart`, config)
       .then((res) => {
-        console.log(res.data);
         setProducts(res.data);
       })
       .catch((er) => {
@@ -38,7 +37,8 @@ export default function Icons() {
 
   async function deleteProduct(id) {
     try {
-      axios.delete(`${BASE_URL}/${id}`, config);
+      await axios.delete(`${BASE_URL}/shoppingCart/${id}`, config);
+      setOpen(true);
     } catch (err) {
       console.log(err.response.data);
     }
@@ -58,7 +58,7 @@ export default function Icons() {
                   marginRight: "5px",
                 }}
               />
-              <Number>0</Number>
+              <Number>{products.length}</Number>
             </>
           )}
         </CartUser>
@@ -70,6 +70,7 @@ export default function Icons() {
             style={{
               position: "fixed",
               cursor: "pointer",
+              margin: "5px"
             }}
           />
           {products.map((p) => (
@@ -88,6 +89,7 @@ export default function Icons() {
               />
             </Product>
           ))}
+            <Total><h1>Total: R$1000</h1></Total>
         </Carrinho>
       )}
       <SignUser>
@@ -141,8 +143,7 @@ const Number = styled.h1`
   top: -2%;
   right: 10%;
   @media (max-width: 768px) {
-    top: 2px;
-    right: 8px;
+    right: 10%;
   }
 `;
 const Carrinho = styled.div`
@@ -155,7 +156,8 @@ const Carrinho = styled.div`
   border-radius: 5px;
   border: 1px solid black;
   overflow-y: auto;
-  padding-bottom: 15px;
+  box-sizing: border-box;
+  padding-bottom: 90px;
   @media (max-width: 768px) {
     right: 10px;
     bottom: 80px;
@@ -180,3 +182,13 @@ const Product = styled.div`
     color: green;
   }
 `;
+const Total = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  bottom: 0;
+`
