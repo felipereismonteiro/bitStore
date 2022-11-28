@@ -86,7 +86,6 @@ export default function ProductPage() {
     </>
   )
 }
-
 const Container = styled.div`
   margin: auto;
   display: flex;
